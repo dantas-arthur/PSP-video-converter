@@ -2,7 +2,7 @@
 <p align="center">A simple program that converts videos to the PSP</p>
 
 <div align="center">
- <img src="assets/icon.png" width=300>
+ <img src="assets/icon.png" width=350>
 </div>
 
 <h2>Preview</h2>
