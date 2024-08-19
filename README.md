@@ -42,6 +42,10 @@ git clone https://github.com/LonelyALpHaz/PSP-video-converter.git
 
 The converted file will have the same title as the original file with '_psp' added at the end; you can rename it as you wish.
 
+## Resources used 
+
+Project developed in ```Python``` version 3.12 using ```FFmpeg``` for video manipulation and the ```CustomTkinter``` module for creating the graphical interface.
+
 ## Disclaimer
 
 If you encounter any errors, don't hesitate to open an issue. Suggestions, critiques, and tips on how the project can be improved are welcome!
