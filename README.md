@@ -19,7 +19,7 @@ The purpose of this program is to help the PSP community convert videos to the P
 
 #### Download the .exe file
 
-You can download the .exe file clicking [here](https://github.com/LonelyALpHaz/PSP-video-converter/releases)
+You can download the .exe file clicking [here](https://github.com/LonelyALpHaz/PSP-video-converter/releases).
 
 or...
 
@@ -30,6 +30,8 @@ Clone the repository to have local access to all the necessary files. You can do
 ```
 git clone https://github.com/LonelyALpHaz/PSP-video-converter.git
 ```
+
+```Note:``` Due to the Github's file upload limit, it was not possible to include the [FFmpeg](https://www.ffmpeg.org/) files. If you choose to clone the repository, please download the latest version and place the "ffmpeg" folder containing the "ffmpeg.exe" file in the same directory as the other program folders.
 
 #### Converting the video
 
