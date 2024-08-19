@@ -8,7 +8,8 @@
 <h2>Preview</h2>
 
 <div align="center">
- <img src="screenshot/screenshot_1.png"> 
+ <img src="screenshot/screenshot_1.png">
+ <img src="screenshot/Screenshot_2.png">
 </div>
 
 ## Purpose
