@@ -8,7 +8,7 @@
 <h2>Preview</h2>
 
 <div align="center">
- <img src="screenshot/screenshot_1.png"> 
+ <img src="screenshot/screenshot_1.png" width=400> <img src="screenshot/Screenshot_2.png" width=400>
 </div>
 
 ## Purpose
@@ -41,6 +41,10 @@ git clone https://github.com/LonelyALpHaz/PSP-video-converter.git
 2. Click the "Convert" button and wait until the message 'Conversion done!' appears on the program's screen.
 
 The converted file will have the same title as the original file with '_psp' added at the end; you can rename it as you wish.
+
+## Resources used 
+
+Project developed in ```Python``` version 3.12 using ```FFmpeg``` for video manipulation and the ```CustomTkinter``` module for creating the graphical interface.
 
 ## Disclaimer
 
