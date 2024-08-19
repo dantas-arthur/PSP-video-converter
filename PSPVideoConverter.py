@@ -36,6 +36,8 @@ def convertVideo(app):
     input_video = app.selected_file
     output_video = os.path.splitext(input_video)[0] + "_psp.mp4"
     
+    ffmpeg_executable = resource_path("ffmpeg/ffmpeg.exe")
+
     (
         ffmpeg
         .input(input_video)
@@ -52,7 +54,7 @@ def convertVideo(app):
             strict="experimental",
             map="0:a"
         )
-        .run()
+        .run(cmd=ffmpeg_executable)
     )
 
     app.label.configure(text="Conversion done!")
