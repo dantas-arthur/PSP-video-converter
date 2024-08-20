@@ -2,7 +2,6 @@ import customtkinter
 from customtkinter import filedialog
 from pathlib import Path
 from PIL import Image
-from time import sleep
 import ffmpeg
 import os, sys
 
@@ -32,33 +31,37 @@ def convertVideo(app):
     if app.entry.get() == "":
         app.label.configure(text="Select a file before convert!", text_color="red")
     else:
-        input_video = app.selected_file
-        output_video = os.path.splitext(input_video)[0] + "_psp.mp4"
-        
-        ffmpeg_executable = resource_path("ffmpeg/ffmpeg.exe")
+        try:
+            app.label.configure(text="File is being converted...", text_color="white")
 
-        app.label.configure(text="File is being converted...", text_color="white")
+            input_video = app.selected_file
+            output_video = os.path.splitext(input_video)[0] + "_psp.mp4"
+            
+            ffmpeg_executable = resource_path("ffmpeg/ffmpeg.exe")
 
-        (
-            ffmpeg
-            .input(input_video)
-            .filter("fps", fps=29.97, round="up")
-            .filter("scale", 320, 240)
-            .output(
-                output_video,
-                vcodec="mpeg4",
-                video_bitrate="672k",
-                acodec="aac",
-                ar="24000",
-                audio_bitrate="128k",
-                movflags="faststart",
-                strict="experimental",
-                map="0:a"
+            (
+                ffmpeg
+                .input(input_video)
+                .filter("fps", fps=29.97, round="up")
+                .filter("scale", 320, 240)
+                .output(
+                    output_video,
+                    vcodec="mpeg4",
+                    video_bitrate="672k",
+                    acodec="aac",
+                    ar="24000",
+                    audio_bitrate="128k",
+                    movflags="faststart",
+                    strict="experimental",
+                    map="0:a"
+                )
+                .run(cmd=ffmpeg_executable)
             )
-            .run(cmd=ffmpeg_executable)
-        )
 
-        app.label.configure(text="Conversion done!", text_color="green")
+            app.label.configure(text="Conversion done!", text_color="green")
+
+        except Exception:
+            app.label.configure(text="ERROR! Selected file is invalid.", text_color="red")
 
 
 # CustomTkinter GUI
