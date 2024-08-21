@@ -1,9 +1,9 @@
-import customtkinter
-from customtkinter import filedialog
 from pathlib import Path
 from PIL import Image
-import ffmpeg
+import customtkinter
+from customtkinter import filedialog
 import os, sys
+import ffmpeg
 
 
 # Function to load images on exe file (More compatibility with the auto-py-to-exe)
@@ -17,18 +17,21 @@ def resource_path(relative_path):
 
 
 # Function to open file selector dialog
-def selectFile(app):
+def selectFile(app, row):
     file_selector = filedialog.askopenfilename()
-    app.entry.delete(0, customtkinter.END)  # Clear the entry
-    app.entry.insert(0, file_selector)  # Display selected file in the entry
-    app.selected_file = file_selector  # Store the selected file path in the app instance
+    if row == 0:
+        app.video_entry.delete(0, customtkinter.END)
+        app.video_entry.insert(0, file_selector)
+        app.selected_file = file_selector
+    elif row == 1:
+        app.thumb_entry.delete(0, customtkinter.END)
+        app.thumb_entry.insert(0, file_selector)
     app.label.configure(text="Press the button to start", text_color="white")
 
 
 # Convert selected video to PSP format
 def convertVideo(app):
-
-    if app.entry.get() == "":
+    if app.video_entry.get() == "":
         app.label.configure(text="Select a file before convert!", text_color="red")
     else:
         try:
@@ -37,6 +40,16 @@ def convertVideo(app):
             input_video = app.selected_file
             output_video = os.path.splitext(input_video)[0] + "_psp.mp4"
             
+            # Thumbnail processing
+            if app.thumb_entry.get() != "":
+                thumb_file = app.thumb_entry.get()
+                thumb_output = os.path.splitext(output_video)[0] + ".THM"
+
+                # Open the image, resize it, and save as JPEG with .THM extension
+                image = Image.open(thumb_file)
+                image = image.resize((160, 120))
+                image.save(thumb_output, format="JPEG")
+
             ffmpeg_executable = resource_path("ffmpeg/ffmpeg.exe")
 
             (
@@ -60,8 +73,8 @@ def convertVideo(app):
 
             app.label.configure(text="Conversion done!", text_color="green")
 
-        except Exception:
-            app.label.configure(text="ERROR! Selected file is invalid.", text_color="red")
+        except Exception as e:
+            app.label.configure(text=f"ERROR: {e}.", text_color="red")
 
 
 # CustomTkinter GUI
@@ -69,23 +82,32 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.geometry("450x320")
+        self.geometry("450x450")
         self.title("PSP Video Converter")
         self.iconbitmap(resource_path("assets/icon.ico"))
 
-        self.entry = customtkinter.CTkEntry(master=self, placeholder_text="", width=300)
-        self.entry.grid(row=0, column=0, padx=30, pady=50)
+        logo = customtkinter.CTkImage(light_image=Image.open(resource_path("assets/icon.png")), size=(150, 150))
+        self.label = customtkinter.CTkLabel(master=self, text="", image=logo)
+        self.label.grid(row=0, column=0,columnspan=2, sticky="n")
+
+        self.video_entry = customtkinter.CTkEntry(master=self, placeholder_text="Video file", width=300)
+        self.video_entry.grid(row=1, column=0, padx=30, pady=15)
+
+        self.thumb_entry = customtkinter.CTkEntry(master=self, placeholder_text="Thumbnail file (optional)", width=300)
+        self.thumb_entry.grid(row=2, column=0, padx=30, pady=15)
 
         image_button = customtkinter.CTkImage(Image.open(resource_path("assets/folder.png")))
 
-        self.file_button = customtkinter.CTkButton(master=self, text="", width=50, image=image_button, fg_color="#2E4057", command=lambda: selectFile(self))
-        self.file_button.grid(row=0, column=1, pady=50)
+        for c in range(0, 2):
 
-        self.label = customtkinter.CTkLabel(master=self, text="Select a file to convert", font=("Arial", 18, "bold"))
-        self.label.grid(row=1, column=0, columnspan=2, sticky="n")
+            self.file_button = customtkinter.CTkButton(master=self, text="", width=50, image=image_button, fg_color="#2E4057", command=lambda row=c: selectFile(self, row))
+            self.file_button.grid(row=c+1, column=1, pady=5)
+
+        self.label = customtkinter.CTkLabel(master=self, text="", font=("Arial", 18, "bold"))
+        self.label.grid(row=3, column=0, columnspan=2, pady=5, sticky="n")
 
         self.start_button = customtkinter.CTkButton(master=self, text="Convert", font=("Arial", 30), width=200, height=100, fg_color="#2E4057", command=lambda: convertVideo(self))
-        self.start_button.grid(row=1, column=0, columnspan=2, pady=50, sticky="n")
+        self.start_button.grid(row=3, column=0, columnspan=2, pady=50, sticky="n")
 
         self.selected_file = ""
         
