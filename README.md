@@ -38,15 +38,22 @@ Due to the Github's file upload limit, it was not possible to include the [FFmpe
 #### Converting the video
 
 > [!NOTE]
-You can use videos in **.mp4**, **.mkv**, and **.avi** formats (formats tested during the development of the project; other formats not listed may be compatible, but I have no knowledge of them).
+You can use videos in **.mp4**, **.mkv**, and **.avi** video formats and **.jpg** and **.png** image formats (formats tested during the development of the project; other formats not listed may be compatible, but I have no knowledge of them).
 ‎
 
 ‎
-1. Click the button with the folder icon and select the file you want to convert;
-2. Click the "Convert" button and wait until the message 'Conversion done!' appears on the program's screen.
+1. Click the first folder icon to select the video file;
+2. **(Optional)** In the second folder icon, select the image file that will be used as the thumbnail;
+3. Click the "Convert" button and wait until the message "Conversion done!" is displayed.
 ‎
 
-The converted file will have the same title as the original file with '_psp' added at the end; you can rename it as you wish.
+#### Viewing the video on your PSP
+
+4. Plug your PSP or SD card into your device;
+5. In the root of your card, copy the converted video file and the thumbnail (if you chose to use one) to the VIDEO folder;
+6. Safely remove your PSP or SD card from your device.
+
+The thumbnail file and the converted video (which will have the same name as the original file with "_psp" added at the end) will be saved in the same folder. The thumbnail file in .THM format **must** have the exact same name as the video file for the thumbnail to be displayed on the PSP.
 
 ## Resources used 
 
