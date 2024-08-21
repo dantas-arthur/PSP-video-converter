@@ -12,7 +12,7 @@ The purpose of this program is to help the PSP community convert videos to the P
 ## Preview
 
 <div align="center">
- <img src="screenshot/screenshot_1.png" width=400> <img src="screenshot/Screenshot_2.png" width=400>
+ <img src="screenshots/Screenshot_1.png" width=400> <img src="screenshots/Screenshot_2.png" width=400>
 </div>
 
 
