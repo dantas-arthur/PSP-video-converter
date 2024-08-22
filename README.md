@@ -35,7 +35,7 @@ git clone https://github.com/LonelyALpHaz/PSP-video-converter.git
 > [!IMPORTANT]
 Due to the Github's file upload limit, it was not possible to include the [FFmpeg](https://www.ffmpeg.org/) files. If you choose to clone the repository, please download the latest version and place the "ffmpeg" folder containing the "ffmpeg.exe" file in the same directory as the other program folders.
 
-#### Converting the video
+#### Converting the video and thumbnail
 
 > [!NOTE]
 You can use videos in **.mp4**, **.mkv**, and **.avi** video formats and **.jpg** and **.png** image formats (formats tested during the development of the project; other formats not listed may be compatible, but I have no knowledge of them).
