@@ -44,7 +44,8 @@ You can use videos in **.mp4**, **.mkv**, and **.avi** video formats and **.jpg*
 ‎
 1. Click the first folder icon to select the video file;
 2. **(Optional)** In the second folder icon, select the image file that will be used as the thumbnail;
-3. Click the "Convert" button and wait until the message "Conversion done!" is displayed.
+3. Select video quality (```240p```: Smaller file size, but lower resolution; or ```480p```: Larger file size, but higher resolution).
+4. Click the "Convert" button and wait until the message "Conversion done!" is displayed.
 ‎
 
 #### Viewing the video on your PSP
