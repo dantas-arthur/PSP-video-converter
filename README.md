@@ -7,7 +7,10 @@
 
 ## Purpose
 
-The purpose of this program is to help the PSP community convert videos to the PlayStation Portable in a simple, fast, and efficient way. There are websites that perform this same process, but the waiting time for file conversion is longer compared to using the program from this repository, and the final file size using the program is about 20% smaller compared to videos converted using other methods.
+<div align="center">
+ <p>The goal of this program is to provide the PSP community with a simple, fast, and efficient way to convert videos for the PlayStation Portable.</p>
+</div>
+
 
 ## Preview
 
@@ -51,7 +54,7 @@ You can use videos in **.mp4**, **.mkv**, and **.avi** video formats and **.jpg*
 #### Viewing the video on your PSP
 
 4. Plug your PSP or SD card into your device;
-5. In the root of your card, copy the converted video file and the thumbnail (if you chose to use one) to the VIDEO folder;
+5. On the root of your card, create or open the `VIDEO` folder and copy the converted video file and the thumbnail (if you chose to use one) into it.
 6. Safely remove your PSP or SD card from your device.
 
 The thumbnail file and the converted video (which will have the same name as the original file with "_psp" added at the end) will be saved in the same folder. The thumbnail file in .THM format **must** have the exact same name as the video file for the thumbnail to be displayed on the PSP.
