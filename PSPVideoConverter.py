@@ -35,8 +35,6 @@ def convertVideo(app):
         app.label.configure(text="Select a file before convert!", text_color="red")
     else:
         try:
-            app.label.configure(text="File is being converted...", text_color="white")
-
             input_video = app.selected_file
             output_video = os.path.splitext(input_video)[0] + "_psp.mp4"
             
@@ -51,27 +49,55 @@ def convertVideo(app):
                 image.save(thumb_output, format="JPEG")
 
             ffmpeg_executable = resource_path("ffmpeg/ffmpeg.exe")
+            selected_quality = app.combo_box.get()      
 
-            (
-                ffmpeg
-                .input(input_video)
-                .filter("fps", fps=29.97, round="up")
-                .filter("scale", 320, 240)
-                .output(
-                    output_video,
-                    vcodec="mpeg4",
-                    video_bitrate="672k",
-                    acodec="aac",
-                    ar="24000",
-                    audio_bitrate="128k",
-                    movflags="faststart",
-                    strict="experimental",
-                    map="0:a"
+            if selected_quality == "240p":
+                (
+                    ffmpeg
+                    .input(input_video)
+                    .filter("fps", fps=29.97, round="up")
+                    .filter("scale", 320, 240)
+                    .output(
+                        output_video,
+                        vcodec="mpeg4",
+                        video_bitrate="672k",
+                        acodec="aac",
+                        ar="24000",
+                        audio_bitrate="128k",
+                        movflags="faststart",
+                        strict="experimental",
+                        map="0:a"
+                    )
+                    .run(cmd=ffmpeg_executable)
                 )
-                .run(cmd=ffmpeg_executable)
-            )
+                app.label.configure(text="Conversion done!", text_color="green")
+                
+            elif selected_quality == "480p":
+                (
+                    ffmpeg
+                    .input(input_video)
+                    .filter("fps", fps=29.97, round="up")
+                    .filter("scale", 480, 272)
+                    .output(
+                        output_video,
+                        vcodec="libx264",
+                        video_bitrate="672k",
+                        acodec="aac",
+                        ar="24000",
+                        audio_bitrate="128k",
+                        movflags="faststart",
+                        pix_fmt="yuv420p",
+                        profile="baseline",
+                        level="1.3",
+                        strict="experimental",
+                        map="0:a"
+                    )
+                    .run(cmd=ffmpeg_executable)
+                )
+                app.label.configure(text="Conversion done!", text_color="green")
 
-            app.label.configure(text="Conversion done!", text_color="green")
+            else:
+                app.label.configure(text="Selected video quality unsupported!", text_color="red")
 
         except Exception as e:
             app.label.configure(text=f"ERROR: {e}.", text_color="red")
@@ -82,7 +108,7 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        self.geometry("450x450")
+        self.geometry("450x500")
         self.title("PSP Video Converter")
         self.iconbitmap(resource_path("assets/icon.ico"))
 
@@ -96,6 +122,12 @@ class App(customtkinter.CTk):
         self.thumb_entry = customtkinter.CTkEntry(master=self, placeholder_text="Thumbnail file (optional)", width=300)
         self.thumb_entry.grid(row=2, column=0, padx=30, pady=15)
 
+        self.quality_label = customtkinter.CTkLabel(master=self, text="Video quality:", font=("Arial", 18))
+        self.quality_label.grid(row=3, column=0, padx=(50, 0), pady=15, sticky="w")
+
+        self.combo_box = customtkinter.CTkComboBox(master=self, values=["480p", "240p"])
+        self.combo_box.grid(row=3, column=0, padx=(0, 50), pady=15, sticky="e")
+
         image_button = customtkinter.CTkImage(Image.open(resource_path("assets/folder.png")))
 
         for c in range(0, 2):
@@ -104,10 +136,10 @@ class App(customtkinter.CTk):
             self.file_button.grid(row=c+1, column=1, pady=5)
 
         self.label = customtkinter.CTkLabel(master=self, text="", font=("Arial", 18, "bold"))
-        self.label.grid(row=3, column=0, columnspan=2, pady=5, sticky="n")
+        self.label.grid(row=4, column=0, columnspan=2, pady=5, sticky="n")
 
         self.start_button = customtkinter.CTkButton(master=self, text="Convert", font=("Arial", 30), width=200, height=100, fg_color="#2E4057", command=lambda: convertVideo(self))
-        self.start_button.grid(row=3, column=0, columnspan=2, pady=50, sticky="n")
+        self.start_button.grid(row=4, column=0, columnspan=2, pady=50, sticky="n")
 
         self.selected_file = ""
         
