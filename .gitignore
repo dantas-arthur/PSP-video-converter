@@ -1,2 +1,4 @@
 ffmpeg/
 output/
+venv
+__pycache__
